@@ -26,7 +26,7 @@ jobs:
         run: mvn -B dependency:resolve dependency:resolve-plugins
 
       - name: Run Karate Tests
-        run: mvn -B test -Dkarate.options="--tags @CreacionAnimal" -Dkarate.output.dir=target/karate-reports
+        run: mvn -B test -Dkarate.options="--tags @CreacionAnimal" -Dkarate.output.dir=target/
 
       - name: Archive Karate Reports
         if: always()
