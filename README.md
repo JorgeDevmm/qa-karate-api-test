@@ -34,7 +34,7 @@ Convenciones y runners
     - Uno o más archivos `*.feature` con escenarios Gherkin.
     - Un runner que ejecuta por path (ej. `Karate.run("classpath:api/animal").relativeTo(getClass())` o equivalente).
 - A nivel de `api/` hay:
-    - Un runner que ejecuta por tag (ej. `@CreacionAnimal`).
+    - Un runner que ejecuta por tag (ej. `@CrearAnimales`).
     - Un runner que ejecuta toda la carpeta `api` en paralelo.
 
 Comandos para ejecutar localmente
