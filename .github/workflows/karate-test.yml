@@ -34,5 +34,5 @@ jobs:
         with:
           name: karate-reports-${{ github.run_id }}-${{ github.run_number }}-${{ github.sha }}
           path: |
-            target/karate-reports/
+            target/karate-reports*
             target/surefire-reports/
