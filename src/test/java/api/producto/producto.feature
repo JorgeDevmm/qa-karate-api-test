@@ -19,7 +19,7 @@ Feature: Gestion de animale
         }
       }
       """
-    Given Url 'https://www.google.com.pe/'
+    Given Url 'https://api.blassacademy.com/animales'
     * request animal
     When method post
     Then status 201
