@@ -1,6 +1,38 @@
 Feature: Gestion de animales
 
-  @CreacionAnimal
+  Background:
+    * url 'https://api.blassacademy.com'
+
+  @ObtenerTodosAnimales
+  Scenario:
+    Given path 'animales'
+    When method get
+    Then status 200
+
+  @ObtenerAnimal
+  Scenario:
+    * def id = 5
+    Given path 'animales'
+    * path id
+    When method get
+    Then status 200
+    * def response_id = response.id
+    * def response_nombre = response.nombre
+    * print 'El id del animal es: ', response_id , ' - y su nombre es:', response_nombre
+    * match response_id == id
+    * match response_nombre == 'Fido'
+
+
+  @EliminarAnimal
+  Scenario:
+    * def animal = 5
+    Given path 'animales'
+    * path animal
+    When method delete
+    Then status 200
+    * match response.mensaje contains "eliminado"
+
+  @CrearAnimales
   Scenario:
     * def animalBody =
       """
@@ -19,7 +51,7 @@ Feature: Gestion de animales
         }
       }
       """
-    Given url 'https://api.blassacademy.com/animales'
+    Given path 'animales'
     * request animalBody
     When method post
     Then status 201
