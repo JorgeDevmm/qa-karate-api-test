@@ -25,8 +25,11 @@ jobs:
       - name: Install dependencies
         run: mvn -B dependency:resolve dependency:resolve-plugins
 
+      - name: Clean target directory
+        run: mvn -B clean
+
       - name: Run Karate Tests
-        run: mvn -B test -Dkarate.options="--tags @CreacionAnimal" -Dkarate.output.dir=target/
+        run: mvn -B test -Dkarate.options="--tags @EliminarAnimal" -Dkarate.output.dir=target/
 
       - name: Archive Karate Reports
         if: always()
