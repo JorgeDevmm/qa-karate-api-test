@@ -43,7 +43,7 @@ Comandos para ejecutar localmente
 Ejemplo para ejecutar por tag desde la consola (ya configurado en tu proyecto):
 
 ```powershell
-mvn -B test -Dkarate.options="--tags @CreacionAnimal" -Dkarate.output.dir=target/karate-reports
+mvn -B test -Dkarate.options="--tags @CreacionAnimal" -Dkarate.output.dir=target/
 ```
 
 Notas sobre el comando:
