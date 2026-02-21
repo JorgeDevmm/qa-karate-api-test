@@ -3,7 +3,7 @@ Feature: Login
   Background:
     * url 'https://api.blassacademy.com'
 
-  @CreacionAnimal
+  @Login
   Scenario: Login
     * def datos_login =
       """
