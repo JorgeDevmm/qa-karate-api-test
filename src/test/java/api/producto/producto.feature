@@ -1,27 +1,91 @@
-Feature: Gestion de animale
+Feature: Gestion de Productos
 
-  @CreacionAnimal
-  Scenario:
-    * def animal =
+  Background:
+    * url 'https://api.blassacademy.com'
+
+  @ObtenerTodosProductos
+  Scenario: Obtener todos los productos
+    Given path 'productos'
+    When method get
+    Then status 200
+
+  @ObtenerProducto
+  Scenario: Obtener un producto
+    * def producto_id = 2
+    Given path 'productos'
+    * path producto_id
+    When method get
+    Then status 200
+
+  @CrearProducto
+  Scenario: Crear un producto
+    * def request_producto =
       """
       {
-        "nombre": "Nova",
-        "tipo": "cautivo",
-        "edad": 3,
-        "peso": 42.3,
-        "genero": "hermafrodita",
-        "amo": {
-          "nombre": "Dovie",
-          "apellido": "McLaughlin",
-          "correo": "Dovie_McLaughlin42@hotmail.com",
-          "edad": 52,
-          "pais": "Paraguay"
-        }
+        "nombre": "Blass",
+        "precio": 18.775,
+        "cantidad": 9,
+        "peso": 9.648,
+        "perecible": true,
+        "volumen": 42.883,
+        "criticas": [
+          {
+            "puntaje": 3.79,
+            "comentario": "Tenderly braised lamb in a rich sesame seed and brussels sprouts sauce, served with a side of creamy garlic.",
+            "correo": "Geraldine.Homenick91@yahoo.com",
+            "usuario": "Geraldine_Homenick29"
+          },
+          {
+            "puntaje": 2.26,
+            "comentario": "Three crabs with french eschallots, dried chinese broccoli, kale, dried chinese broccoli and arrowroot. With a side of baked tomato, and your choice of olives or spelt.",
+            "correo": "Kira.Ullrich77@hotmail.com",
+            "usuario": "Kira_Ullrich"
+          },
+          {
+            "puntaje": 2.84,
+            "comentario": "Our bitter crocodile, slow-cooked to perfection, accompanied by steamed arugula and a rich, savory gravy.",
+            "correo": "Jaqueline_Cummerata44@yahoo.com",
+            "usuario": "Jaqueline_Cummerata59"
+          },
+          {
+            "puntaje": 4.98,
+            "comentario": "A special pink sultanas from Malta. To support the strong flavor it is sided with a tablespoon of lemon pepper.",
+            "correo": "Adelia.Pacocha@gmail.com",
+            "usuario": "Adelia_Pacocha79"
+          },
+          {
+            "puntaje": 3.41,
+            "comentario": "Our sweet lamb, slow-cooked to perfection, accompanied by steamed lettuce and a rich, savory gravy.",
+            "correo": "Joanne.Larson13@hotmail.com",
+            "usuario": "Joanne_Larson92"
+          }
+        ],
+        "etiquetas": [
+          "Soft",
+          "Intelligent",
+          "Elegant",
+          "Electronic",
+          "Incredible",
+          "Small",
+          "Handcrafted",
+          "Licensed",
+          "Oriental"
+        ]
       }
       """
-    Given url 'https://api.blassacademy.com/animales'
-    * request animal
+    * def request_producto_nombre = request_producto.nombre
+    Given path 'productos'
+    * request request_producto
     When method post
     Then status 201
     * def id = response.id
-    * print 'El id del Animal creado es ', id
+    * print "El id del producto es: ", id
+    * match response.nombre == request_producto_nombre
+
+  @EliminarProducto
+  Scenario: Eliminar un producto
+    * def producto_id = 2
+    Given path 'productos',producto_id
+    When method delete
+    Then status 200
+    * match response.mensaje contains 'eliminado'

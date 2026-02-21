@@ -4,13 +4,13 @@ Feature: Gestion de animales
     * url 'https://api.blassacademy.com'
 
   @ObtenerTodosAnimales
-  Scenario:
+  Scenario: Obtener todos los animales
     Given path 'animales'
     When method get
     Then status 200
 
   @ObtenerAnimal
-  Scenario:
+  Scenario: Obtener un animal
     * def id = 5
     Given path 'animales'
     * path id
@@ -24,7 +24,7 @@ Feature: Gestion de animales
 
 
   @EliminarAnimal
-  Scenario:
+  Scenario: ELiminar un animal
     * def animal = 5
     Given path 'animales'
     * path animal
@@ -33,7 +33,7 @@ Feature: Gestion de animales
     * match response.mensaje contains "eliminado"
 
   @CrearAnimales
-  Scenario:
+  Scenario: Crear animales
     * def animalBody =
       """
       {
