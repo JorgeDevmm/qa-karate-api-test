@@ -1,27 +1,21 @@
-Feature: Gestion de animale
+Feature: Login
+
+  Background:
+    * url 'https://api.blassacademy.com'
 
   @CreacionAnimal
-  Scenario:
-    * def animal =
+  Scenario: Login
+    * def datos_login =
       """
       {
-        "nombre": "Nova",
-        "tipo": "cautivo",
-        "edad": 3,
-        "peso": 42.3,
-        "genero": "hermafrodita",
-        "amo": {
-          "nombre": "Dovie",
-          "apellido": "McLaughlin",
-          "correo": "Dovie_McLaughlin42@hotmail.com",
-          "edad": 52,
-          "pais": "Paraguay"
-        }
+        "username": "standard_user",
+        "password": "secret_blass_academy"
       }
       """
-    Given url 'https://api.blassacademy.com/animales'
-    * request animal
+    Given path 'auth','login'
+    * request datos_login
     When method post
-    Then status 201
-    * def id = response.id
-    * print 'El id del Animal creado es ', id
+    Then status 200
+    * def response_accessToken = response.accessToken
+    * def response_refreshToken = response.refreshToken
+    * print 'accessToken: ', response_accessToken ,' refreshToken: ', response_refreshToken
