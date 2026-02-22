@@ -2,18 +2,17 @@ Feature: Gestion de Productos
 
   Background:
     * url 'https://api.blassacademy.com'
+    * patch 'productos'
 
   @ObtenerTodosProductos
   Scenario: Obtener todos los productos
-    Given path 'productos'
     When method get
     Then status 200
 
   @ObtenerProducto
   Scenario: Obtener un producto
     * def producto_id = 2
-    Given path 'productos'
-    * path producto_id
+    Given path producto_id
     When method get
     Then status 200
 
@@ -74,8 +73,7 @@ Feature: Gestion de Productos
       }
       """
     * def request_producto_nombre = request_producto.nombre
-    Given path 'productos'
-    * request request_producto
+    Given request request_producto
     When method post
     Then status 201
     * def id = response.id
@@ -85,7 +83,7 @@ Feature: Gestion de Productos
   @EliminarProducto
   Scenario: Eliminar un producto
     * def producto_id = 2
-    Given path 'productos',producto_id
+    Given path producto_id
     When method delete
     Then status 200
     * match response.mensaje contains 'eliminado'
