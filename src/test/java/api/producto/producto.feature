@@ -2,7 +2,7 @@ Feature: Gestion de Productos
 
   Background:
     * url 'https://api.blassacademy.com'
-    * patch 'productos'
+    * path 'productos'
 
   @ObtenerTodosProductos
   Scenario: Obtener todos los productos
