@@ -2,18 +2,17 @@ Feature: Gestion de animales
 
   Background:
     * url 'https://api.blassacademy.com'
+    * path 'animales'
 
   @ObtenerTodosAnimales
   Scenario: Obtener todos los animales
-    Given path 'animales'
     When method get
     Then status 200
 
   @ObtenerAnimal
   Scenario: Obtener un animal
     * def id = 5
-    Given path 'animales'
-    * path id
+    Given path id
     When method get
     Then status 200
     * def response_id = response.id
@@ -26,23 +25,20 @@ Feature: Gestion de animales
   @EliminarAnimal
   Scenario: ELiminar un animal
     * def animal = 5
-    Given path 'animales'
-    * path animal
+    Given path animal
     When method delete
     Then status 200
     * match response.mensaje contains "eliminado"
 
   @OrdenarAnimales
   Scenario: OrdenarAnimales
-    Given path 'animales'
-    * params {sortBy: peso, order: asc}
+    Given params {sortBy: 'peso', order: 'asc'}
     When method get
     Then status 200
 
   @BuscarAnimales
   Scenario: Buscar Animales
-    Given path 'animales'
-    * param nombre = 'Oreo'
+    Given param nombre = 'Oreo'
     When method get
     Then status 200
     * def response_id = response.id
@@ -50,8 +46,7 @@ Feature: Gestion de animales
 
   @FiltrarAnimales
   Scenario: Filtrar Animales
-    Given path 'animales'
-    * params {filterBy: tipo, value: domestico}
+    Given params {filterBy: 'tipo', value: 'domestico'}
     When method get
     Then status 200
 
@@ -74,8 +69,7 @@ Feature: Gestion de animales
         }
       }
       """
-    Given path 'animales'
-    * request animalBody
+    Given request animalBody
     When method post
     Then status 201
     * def id = response.id
@@ -101,11 +95,30 @@ Feature: Gestion de animales
         }
       }
       """
-    Given path 'animales',animal_id
+    Given path animal_id
     * request animal_request
     When method put
     Then status 200
     * match response.id == animal_id
+
+  @ActualizarParcialmenteAnimal
+  Scenario: Actualizar Parcialmente Animal
+    * def animales_body =
+      """
+      {
+        "nombre": "Blass",
+        "tipo": "salvaje",
+        "edad": 25,
+        "peso": 32.00
+      }
+      """
+    * def param_id = 5
+    Given path param_id
+    * request animales_body
+    When method patch
+    Then status 200
+
+
 
 
 
