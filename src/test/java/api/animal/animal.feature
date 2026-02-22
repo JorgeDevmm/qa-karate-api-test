@@ -32,6 +32,29 @@ Feature: Gestion de animales
     Then status 200
     * match response.mensaje contains "eliminado"
 
+  @OrdenarAnimales
+  Scenario: OrdenarAnimales
+    Given path 'animales'
+    * params {sortBy: peso, order: asc}
+    When method get
+    Then status 200
+
+  @BuscarAnimales
+  Scenario: Buscar Animales
+    Given path 'animales'
+    * param nombre = 'Oreo'
+    When method get
+    Then status 200
+    * def response_id = response.id
+    * match response[0].nombre == 'Oreo'
+
+  @FiltrarAnimales
+  Scenario: Filtrar Animales
+    Given path 'animales'
+    * params {filterBy: tipo, value: domestico}
+    When method get
+    Then status 200
+
   @CrearAnimales
   Scenario: Crear animales
     * def animalBody =
@@ -57,3 +80,32 @@ Feature: Gestion de animales
     Then status 201
     * def id = response.id
     * print 'El id del Animal creado es ', id
+
+  @ActualizarAnimal
+  Scenario: Actualizar Animal
+    * def animal_id = 5
+    * def animal_request =
+      """
+      {
+        "nombre": "Blass",
+        "tipo": "Tranquilo",
+        "edad": 15,
+        "peso": 32.00,
+        "genero": "Macho",
+        "amo": {
+          "nombre": "Christophe",
+          "apellido": "Chapulin",
+          "correo": "Christophe_Stanton52@hotmail.com",
+          "edad": 30,
+          "pais": "Guam"
+        }
+      }
+      """
+    Given path 'animales',animal_id
+    * request animal_request
+    When method put
+    Then status 200
+    * match response.id == animal_id
+
+
+
