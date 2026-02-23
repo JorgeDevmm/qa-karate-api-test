@@ -1,0 +1,14 @@
+{
+  "nombre": "Blass",
+  "tipo": "Tranquilo",
+  "edad": 15,
+  "peso": 32.00,
+  "genero": "Macho",
+  "amo": {
+    "nombre": "Christophe",
+    "apellido": "Chapulin",
+    "correo": "Christophe_Stanton52@hotmail.com",
+    "edad": 30,
+    "pais": "Guam"
+  }
+}
