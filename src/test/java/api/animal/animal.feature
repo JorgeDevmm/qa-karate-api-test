@@ -52,24 +52,8 @@ Feature: Gestion de animales
 
   @CrearAnimales
   Scenario: Crear animales
-    * def animalBody =
-      """
-      {
-        "nombre": "Nova",
-        "tipo": "cautivo",
-        "edad": 3,
-        "peso": 42.3,
-        "genero": "hermafrodita",
-        "amo": {
-          "nombre": "Dovie",
-          "apellido": "McLaughlin",
-          "correo": "Dovie_McLaughlin42@hotmail.com",
-          "edad": 52,
-          "pais": "Paraguay"
-        }
-      }
-      """
-    Given request animalBody
+    * def animal_crear_body = read('animal_crear_body.json')
+    Given request animal_crear_body
     When method post
     Then status 201
     * def id = response.id
@@ -78,43 +62,19 @@ Feature: Gestion de animales
   @ActualizarAnimal
   Scenario: Actualizar Animal
     * def animal_id = 5
-    * def animal_request =
-      """
-      {
-        "nombre": "Blass",
-        "tipo": "Tranquilo",
-        "edad": 15,
-        "peso": 32.00,
-        "genero": "Macho",
-        "amo": {
-          "nombre": "Christophe",
-          "apellido": "Chapulin",
-          "correo": "Christophe_Stanton52@hotmail.com",
-          "edad": 30,
-          "pais": "Guam"
-        }
-      }
-      """
+    * def animal_actualizar_body = read('animal_actualizar_body.json')
     Given path animal_id
-    * request animal_request
+    * request animal_actualizar_body
     When method put
     Then status 200
     * match response.id == animal_id
 
   @ActualizarParcialmenteAnimal
   Scenario: Actualizar Parcialmente Animal
-    * def animales_body =
-      """
-      {
-        "nombre": "Blass",
-        "tipo": "salvaje",
-        "edad": 25,
-        "peso": 32.00
-      }
-      """
+    * def animal_actualizar_parcial_body = read('animal_actualizar_parcial_body.json')
     * def param_id = 5
     Given path param_id
-    * request animales_body
+    * request animal_actualizar_parcial_body
     When method patch
     Then status 200
 
