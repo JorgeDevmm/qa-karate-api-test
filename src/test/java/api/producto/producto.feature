@@ -16,6 +16,33 @@ Feature: Gestion de Productos
     When method get
     Then status 200
 
+  @EliminarProducto
+  Scenario: Eliminar un producto
+    * def producto_id = 2
+    Given path producto_id
+    When method delete
+    Then status 200
+    * match response.mensaje contains 'eliminado'
+
+  @OrdenarProductos
+  Scenario: Ordenar Productos
+    Given params {sortBy: 'precio',order: 'order'}
+    When method get
+    Then status 200
+
+  @BuscarProductos
+  Scenario: Buscar Productos
+    Given param nombre = 'Vinagreta'
+    When method get
+    Then status 200
+
+  @FiltrarProductos
+  Scenario: FiltrarProductos
+    Given params {filterBy:'perecible',value:false}
+    When method get
+    Then status 200
+
+
   @CrearProducto
   Scenario: Crear un producto
     * def request_producto =
@@ -80,10 +107,85 @@ Feature: Gestion de Productos
     * print "El id del producto es: ", id
     * match response.nombre == request_producto_nombre
 
-  @EliminarProducto
-  Scenario: Eliminar un producto
-    * def producto_id = 2
-    Given path producto_id
-    When method delete
+  @ActualizarProducto
+  Scenario: Actualizar Producto
+    * def id = 3
+    * def producto_body =
+      """
+      {
+        "nombre": "Blass",
+        "precio": 18.775,
+        "cantidad": 2,
+        "peso": 9.648,
+        "perecible": true,
+        "volumen": 42.883,
+        "criticas": [
+          {
+            "puntaje": 3.79,
+            "comentario": "Tenderly braised lamb in a rich sesame seed and brussels sprouts sauce, served with a side of creamy garlic.",
+            "correo": "Geraldine.Homenick91@yahoo.com",
+            "usuario": "Geraldine_Homenick29"
+          },
+          {
+            "puntaje": 2.26,
+            "comentario": "Three crabs with french eschallots, dried chinese broccoli, kale, dried chinese broccoli and arrowroot. With a side of baked tomato, and your choice of olives or spelt.",
+            "correo": "Kira.Ullrich77@hotmail.com",
+            "usuario": "Kira_Ullrich"
+          },
+          {
+            "puntaje": 2.84,
+            "comentario": "Our bitter crocodile, slow-cooked to perfection, accompanied by steamed arugula and a rich, savory gravy.",
+            "correo": "Jaqueline_Cummerata44@yahoo.com",
+            "usuario": "Jaqueline_Cummerata59"
+          },
+          {
+            "puntaje": 4.98,
+            "comentario": "A special pink sultanas from Malta. To support the strong flavor it is sided with a tablespoon of lemon pepper.",
+            "correo": "Adelia.Pacocha@gmail.com",
+            "usuario": "Adelia_Pacocha79"
+          },
+          {
+            "puntaje": 3.41,
+            "comentario": "Our sweet lamb, slow-cooked to perfection, accompanied by steamed lettuce and a rich, savory gravy.",
+            "correo": "Joanne.Larson13@hotmail.com",
+            "usuario": "Joanne_Larson92"
+          }
+        ],
+        "etiquetas": [
+          "Soft",
+          "Intelligent",
+          "Elegant",
+          "Electronic",
+          "Incredible",
+          "Small",
+          "Handcrafted",
+          "Licensed",
+          "Oriental"
+        ]
+      }
+      """
+    Given path id
+    * request producto_body
+    When method put
     Then status 200
-    * match response.mensaje contains 'eliminado'
+
+  @ActualizarParcialmenteProducto
+  Scenario: Actualizar parcialmente producto
+    * def id = 3
+    * def producto_body =
+      """
+      {
+        "nombre": "Blass",
+        "precio": 4.892,
+        "cantidad": 3,
+        "peso": 3.71,
+        "perecible": false,
+        "volumen": 58.396
+      }
+      """
+    Given path id
+    * request producto_body
+    When method patch
+    Then status 200
+
+
