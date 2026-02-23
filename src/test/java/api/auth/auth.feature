@@ -2,18 +2,13 @@ Feature: Login
 
   Background:
     * url 'https://api.blassacademy.com'
+    * path 'auth'
 
   @Login
   Scenario: Login
-    * def datos_login =
-      """
-      {
-        "username": "standard_user",
-        "password": "secret_blass_academy"
-      }
-      """
-    Given path 'auth','login'
-    * request datos_login
+    * def login_body = read('login_body.json')
+    Given path 'login'
+    * request login_body
     When method post
     Then status 200
     * def response_accessToken = response.accessToken
