@@ -1,13 +1,14 @@
 Feature: Login
 
   Background:
-    * url 'https://api.blassacademy.com'
-    * path 'auth'
+    * url baseURL
+    * def auth = 'auth'
+    * def login = 'login'
 
   @Login
   Scenario: Login
     * def login_body = read('login_body.json')
-    Given path 'login'
+    Given path auth, login
     * request login_body
     When method post
     Then status 200

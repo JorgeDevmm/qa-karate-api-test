@@ -1,7 +1,7 @@
 Feature: Gestion de Productos
 
   Background:
-    * url 'https://api.blassacademy.com'
+    * url baseURL
     * path 'productos'
 
   @ObtenerTodosProductos
@@ -56,19 +56,19 @@ Feature: Gestion de Productos
 
   @ActualizarProducto
   Scenario: Actualizar Producto
-    * def id = 3
+    * def producto_id = 3
     * def producto_actualizar_body = read('producto_actualizar_body.json')
-    Given path id
+    Given path producto_id
     * request producto_actualizar_body
     When method put
     Then status 200
 
   @ActualizarParcialmenteProducto
   Scenario: Actualizar parcialmente producto
-    * def id = 3
-    * def producto_actualizar_parcialmente_body = read('producto_actualizar_parcialmente_body.json')
-    Given path id
-    * request producto_actualizar_parcialmente_body
+    * def producto_id = 3
+    * def producto_actualizar_parcial_body = read('producto_actualizar_parcial_body.json')
+    Given path producto_id
+    * request producto_actualizar_parcial_body
     When method patch
     Then status 200
 
