@@ -10,6 +10,7 @@ Feature: Gestion de animales
     Given path animales
     When method get
     Then status 200
+    * assert responseTime < maxResponseTime
 
   @ObtenerAnimal
   Scenario: Obtener un animal
@@ -21,6 +22,7 @@ Feature: Gestion de animales
     * print 'El id del animal es: ', response_id , ' - y su nombre es:', response_nombre
     * match response_id == animal_id
     * match response_nombre == 'Fido'
+    * assert responseTime < maxResponseTime
 
 
   @EliminarAnimal
@@ -29,6 +31,7 @@ Feature: Gestion de animales
     When method delete
     Then status 200
     * match response.mensaje contains "eliminado"
+    * assert responseTime < maxResponseTime
 
   @OrdenarAnimales
   Scenario: OrdenarAnimales
@@ -36,6 +39,7 @@ Feature: Gestion de animales
     * params {sortBy: 'peso', order: 'asc'}
     When method get
     Then status 200
+    * assert responseTime < maxResponseTime
 
   @BuscarAnimales
   Scenario: Buscar Animales
@@ -43,8 +47,10 @@ Feature: Gestion de animales
     * param nombre = 'Oreo'
     When method get
     Then status 200
-    * def response_id = response.id
+    * def response_id = response[0].id
+    * print response_id
     * match response[0].nombre == 'Oreo'
+    * assert responseTime < maxResponseTime
 
   @FiltrarAnimales
   Scenario: Filtrar Animales
@@ -52,6 +58,7 @@ Feature: Gestion de animales
     * params {filterBy: 'tipo', value: 'domestico'}
     When method get
     Then status 200
+    * assert responseTime < maxResponseTime
 
   @CrearAnimales
   Scenario: Crear animales
@@ -61,7 +68,7 @@ Feature: Gestion de animales
     When method post
     Then status 201
     * def id = response.id
-    * print 'El id del Animal creado es ', id
+    * print `El id del Animal creado es: ${id}`
 
   @ActualizarAnimal
   Scenario: Actualizar Animal
@@ -71,6 +78,7 @@ Feature: Gestion de animales
     When method put
     Then status 200
     * match response.id == animal_id
+    * assert responseTime < maxResponseTime
 
   @ActualizarParcialmenteAnimal
   Scenario: Actualizar Parcialmente Animal
@@ -80,6 +88,7 @@ Feature: Gestion de animales
     * request animal_actualizar_parcial_body
     When method patch
     Then status 200
+    * assert responseTime < maxResponseTime
 
 
 
