@@ -23,6 +23,11 @@ Feature: Gestion de animales
     * match response_id == animal_id
     * match response_nombre == 'Fido'
     * assert responseTime < maxResponseTime
+    * assert response.id == 5
+    * assert response.tipo == 'cautivo'
+    * assert response.amo.nombre == 'Dora'
+    * assert response.amo.edad == 52
+    * assert response.amo.pais == 'Paraguay'
 
 
   @EliminarAnimal
