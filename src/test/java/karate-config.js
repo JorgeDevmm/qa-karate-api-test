@@ -7,7 +7,8 @@ function fn() {
     var config = {
         env: env,
         myVarName: 'someValue',
-        baseURL: 'https://api.blassacademy.com'
+        baseURL: 'https://api.blassacademy.com',
+        maxResponseTime: 1000
     }
     if (env == 'dev') {
         // customize
