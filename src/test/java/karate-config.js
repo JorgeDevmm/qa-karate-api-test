@@ -8,7 +8,7 @@ function fn() {
         env: env,
         myVarName: 'someValue',
         baseURL: 'https://api.blassacademy.com',
-        maxResponseTime: 1000
+        maxResponseTime: 5000
     }
     if (env == 'dev') {
         // customize
