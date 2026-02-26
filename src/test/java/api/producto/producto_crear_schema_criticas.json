@@ -1,0 +1,6 @@
+{
+  "puntaje": "#number",
+  "comentario": "#string",
+  "correo": "#string",
+  "usuario": "#string"
+}

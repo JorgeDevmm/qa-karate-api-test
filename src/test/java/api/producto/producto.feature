@@ -68,6 +68,8 @@ Feature: Gestion de Productos
   Scenario: Crear un producto
     * def producto_crear_body = read('producto_crear_body.json')
     * def producto_nombre = producto_crear_body.nombre
+    * def producto_crear_schema = read('producto_crear_schema.json')
+    * def producto_crear_schema_criticas = read('producto_crear_schema_criticas.json')
     Given request producto_crear_body
     When method post
     Then status 201
@@ -75,6 +77,8 @@ Feature: Gestion de Productos
     * print "El id del producto es: ", id
     * match response.nombre == producto_nombre
     * assert responseTime < maxResponseTime
+    * match response == producto_crear_schema
+    * match each response.criticas == producto_crear_schema_criticas
 
   @ActualizarProducto
   Scenario: Actualizar Producto

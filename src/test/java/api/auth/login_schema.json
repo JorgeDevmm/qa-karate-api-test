@@ -1,0 +1,10 @@
+{
+  "id": "#number",
+  "usuario": "#string",
+  "correo": "#string",
+  "nombre": "#string",
+  "apellido": "#string",
+  "edad": "#number",
+  "accessToken": "#string",
+  "refreshToken": "#string"
+}

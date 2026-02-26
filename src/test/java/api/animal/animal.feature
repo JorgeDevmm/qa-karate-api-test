@@ -68,12 +68,14 @@ Feature: Gestion de animales
   @CrearAnimales
   Scenario: Crear animales
     * def animal_crear_body = read('animal_crear_body.json')
+    * def animal_crear_schema = read('animal_crear_schema.json')
     Given path animales
     * request animal_crear_body
     When method post
     Then status 201
     * def id = response.id
     * print `El id del Animal creado es: ${id}`
+    * match response == animal_crear_schema
 
   @ActualizarAnimal @Smoke
   Scenario: Actualizar Animal
