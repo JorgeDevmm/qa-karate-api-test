@@ -5,7 +5,7 @@ Feature: Login
     * def auth = 'auth'
     * def login = 'login'
 
-  @Login
+  @Login @Smoke
   Scenario: Login
     * def login_body = read('login_body.json')
     Given path auth, login

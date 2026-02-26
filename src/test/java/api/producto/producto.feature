@@ -4,13 +4,13 @@ Feature: Gestion de Productos
     * url baseURL
     * path 'productos'
 
-  @ObtenerTodosProductos
+  @ObtenerTodosProductos @Regression
   Scenario: Obtener todos los productos
     When method get
     Then status 200
     * assert responseTime < maxResponseTime
 
-  @ObtenerProducto
+  @ObtenerProducto @Smoke @Regression
   Scenario: Obtener un producto
     * def critica =
       """
@@ -33,7 +33,7 @@ Feature: Gestion de Productos
     * assert response.criticas[1].puntaje == 4.74
     * assert response.etiquetas[2] == 'Fresco'
 
-  @EliminarProducto
+  @EliminarProducto @Regression
   Scenario: Eliminar un producto
     * def producto_id = 2
     Given path producto_id
@@ -49,7 +49,7 @@ Feature: Gestion de Productos
     Then status 200
     * assert responseTime < maxResponseTime
 
-  @BuscarProductos
+  @BuscarProductos @Smoke
   Scenario: Buscar Productos
     Given param nombre = 'Vinagreta'
     When method get
@@ -86,7 +86,7 @@ Feature: Gestion de Productos
     Then status 200
     * assert responseTime < maxResponseTime
 
-  @ActualizarParcialmenteProducto
+  @ActualizarParcialmenteProducto @Smoke
   Scenario: Actualizar parcialmente producto
     * def producto_id = 3
     * def producto_actualizar_parcial_body = read('producto_actualizar_parcial_body.json')

@@ -5,14 +5,14 @@ Feature: Gestion de animales
     * def animales = 'animales'
     * def animal_id = 5
 
-  @ObtenerTodosAnimales
+  @ObtenerTodosAnimales @Regression
   Scenario: Obtener todos los animales
     Given path animales
     When method get
     Then status 200
     * assert responseTime < maxResponseTime
 
-  @ObtenerAnimal
+  @ObtenerAnimal @Smoke @Regression
   Scenario: Obtener un animal
     Given path animales, animal_id
     When method get
@@ -30,7 +30,7 @@ Feature: Gestion de animales
     * assert response.amo.pais == 'Paraguay'
 
 
-  @EliminarAnimal
+  @EliminarAnimal @Smoke
   Scenario: ELiminar un animal
     Given path animales, animal_id
     When method delete
@@ -75,7 +75,7 @@ Feature: Gestion de animales
     * def id = response.id
     * print `El id del Animal creado es: ${id}`
 
-  @ActualizarAnimal
+  @ActualizarAnimal @Smoke
   Scenario: Actualizar Animal
     * def animal_actualizar_body = read('animal_actualizar_body.json')
     Given path animales, animal_id
@@ -85,7 +85,7 @@ Feature: Gestion de animales
     * match response.id == animal_id
     * assert responseTime < maxResponseTime
 
-  @ActualizarParcialmenteAnimal
+  @ActualizarParcialmenteAnimal @Regression
   Scenario: Actualizar Parcialmente Animal
     * def animal_actualizar_parcial_body = read('animal_actualizar_parcial_body.json')
     * def param_id = 5
