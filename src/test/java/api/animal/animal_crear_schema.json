@@ -1,0 +1,15 @@
+{
+  "nombre": "#string",
+  "tipo": "#string",
+  "edad": "#number",
+  "peso": "#number",
+  "genero": "#string",
+  "amo": {
+    "nombre": "#string",
+    "apellido": "#string",
+    "correo": "#string",
+    "edad": "#number",
+    "pais": "#string"
+  },
+  "id": "#number"
+}
